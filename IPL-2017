@@ -1,1 +1,95 @@
+import numpy as np
+import pandas as pd
+df=pd.read_csv('datasets_323_7768_matches.csv')
+df
+df.head()
+dt=df['venue'].value_counts().head(7)
+import seaborn as sns
+import matplotlib.pyplot as plt
+fig=plt.figure(figsize=(10,10))
+dt.plot(kind="barh",fontsize=20)
+plt.ylabel("Location names",fontsize=50,color="red",fontweight='bold')
+plt.show()
+df['venue'].value_counts()[:7]
+sns.set_style("darkgrid") #7 most played venue in the History of IPL from 2008 to 2017
+ls=df['venue'].value_counts().sort_values(ascending=False)
+ls=ls[:7]
+plt.figure(figsize=(20,6))
+Most_Played=sns.barplot(ls.index,ls.values)
+plt.title('Most Played venue')
+plt.ylabel('count',fontsize=12)
+plt.xlabel('Name of the stadiums',fontsize=15)
+Most_Played.set_xticklabels(rotation=30,labels=ls.index,fontsize=10)
+plt.show()
+ls
+ls.index
+ls.values
+Delhi_stadium=df.loc[(df['venue']=='Feroz Shah Kotla')] #winning percent at Feroz shah Kotla,Delhi in the History of IPL 2008 TO 2017
+Delhi_stadium_win_by_runs=Delhi_stadium[Delhi_stadium['win_by_runs']>0]
+slices=[len(Delhi_stadium_win_by_runs),len(Delhi_stadium)-len(Delhi_stadium_win_by_runs)]
+labels=['Batting first','Batting Second']
+plt.pie(slices,labels=labels,startangle=90,shadow=1,explode=(0,0.4),autopct='%1.2f%%',colors=['#bf00ff','#66CDAA'])
+plt.show()
+Bangalore_stadium=df.loc[(df['venue']=='M Chinnaswamy Stadium')]#winning percent at M chinnaswamy stadium in the history of IPL 2008 to 2017
+Bangalore_stadium_win_by_runs=Bangalore_stadium[Bangalore_stadium['win_by_runs']>0]
+slices=[len(Bangalore_stadium_win_by_runs),len(Bangalore_stadium)-len(Bangalore_stadium_win_by_runs)]
+labels=['Batting first','Batting Second']
+plt.pie(slices,labels=labels,startangle=90,shadow=1,explode=(0,0.4),autopct='%1.2f%%',colors=['#bf00ff','#66CDAA'])
+plt.show()
+Mumbai_stadium=df.loc[(df['venue']=='Wankhede Stadium')]#winning percent at wankhede in the history of IPL 2008 to 2017
+Mumbai_stadium_win_by_runs=Mumbai_stadium[Mumbai_stadium['win_by_runs']>0]
+slices=[len(Mumbai_stadium_win_by_runs),len(Mumbai_stadium)-len(Mumbai_stadium_win_by_runs)]
+labels=['Batting first','Batting Second']
+plt.pie(slices,labels=labels,startangle=90,shadow=1,explode=(0,0.4),autopct='%1.2f%%',colors=['#00FF00','#FFFF00'])
+plt.show()
+Delhi_stadium=df.loc[(df['venue']=='Feroz Shah Kotla')]
+match_2017=df[df['season']==2017]
+df=match_2017[match_2017['toss_winner']==match_2017['winner']]
+slices=[len(df),(59-len(df))]
+labels=['yes','no']
+plt.pie(slices,labels=labels,startangle=90,shadow=True,explode=(0,0.05),autopct='%1.2f%%',colors=['#99ff99','#ffcc99'])
+plt.show()
+match_2017
+df=match_2017[match_2017['toss_winner']==match_2017['winner']]
+df
+dfs=df[(df['toss_decision']=='field') & (df['season']==2017)]
+labels=['Bat','Field']
+slices=[59-len(dfs),len(dfs)]
+plt.pie(slices,labels=labels,startangle=90,shadow=1,explode=(0.2,0.4),autopct='%1.2f%%',colors=['#ff9999','#66b3ff'])
+plt.show()
+df2=pd.read_csv("deliveries.csv")
+df2
+df.info()
+df2.info()
+df.info()
+df.info()
+df["id"].max()
+df.count()['id']
+df['season'].nunique()
+df['season'].value_counts()
+df[df['win_by_runs']==df['win_by_runs'].max()]['winner']
+df[df["win_by_wickets"]==df["win_by_wickets"].max()]['winner']
+df["season"].value_counts()[:1]
+sns.countplot(x="season",data=df)
+plt.show()
+data=df.winner.value_counts()
+sns.barplot(y=data.index,x=data,orient="h")
+q=df["season"].value_counts()
+q.index
+sns.countplot(x=q.index,data=q)
+top_players=df.player_of_match.value_counts()[:10]
+top_players
+plt.figure(figsize=(10,5))
+sns.barplot(y=top_players.index,x=top_players,orient='h')
+plt.title("top player of the match winners")
+df=df[df['toss_winner']==df['winner']]
+df.groupby("season")["winner"].value_counts()
+df["date"].dtype
+df["date"]=pd.to_datetime(df["date"])
+df["date"].dtype
+df["year"]=df['date'].dt.day
+df.head()
+df=pd.DataFrame({"year":[2015,2016],"month":[2,3],"day":[4,5]})
+df
+pd.to_datetime(df)
 
